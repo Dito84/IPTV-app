@@ -57,6 +57,7 @@
   .hidden { display: none !important; }
   .show { display: flex !important; }
   
+  /* ===== BACKGROUND SYNC BAR ===== */
   .bg-sync-bar {
     position: fixed; top: 0; left: 0; right: 0;
     height: 3px; background: var(--dark-surface);
@@ -88,15 +89,18 @@
     border-radius: 50%; animation: spin 0.8s linear infinite;
   }
   
+  /* ===== LOGIN ===== */
   .login-overlay {
     position: fixed; inset: 0;
     background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 100%);
-    z-index: 1000; align-items: center; justify-content: center; padding: 20px;
+    z-index: 1000; align-items: flex-start; justify-content: center; padding: 20px;
+    overflow-y: auto;
   }
   .login-box {
     background: var(--dark-surface); position: relative;
     border-radius: 16px; padding: 40px; max-width: 480px; width: 100%;
     box-shadow: var(--glow-red); animation: fadeIn 0.5s ease;
+    margin: auto;
   }
   .login-box::before {
     content: ''; position: absolute; inset: -2px;
@@ -135,7 +139,7 @@
     font-family: 'Orbitron', sans-serif; letter-spacing: 1px; cursor: pointer; transition: all 0.3s;
   }
   .btn-default-list:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
-  .btn-default-list:disabled { background: var(--border-dim); cursor: not-allowed; box-shadow: none; transform: none; }
+  .btn-default-list:disabled { background: var(--border-dim); cursor: not-allowed; box-shadow: none; }
   .login-divider {
     display: flex; align-items: center; gap: 10px; margin-bottom: 22px;
     color: var(--text-secondary); font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
@@ -175,6 +179,7 @@
   }
   .login-error.show { display: block; }
   
+  /* ===== LOADING OVERLAY ===== */
   .loading-overlay {
     position: fixed; inset: 0; background: rgba(10, 10, 10, 0.98);
     z-index: 2000; display: none; align-items: center; justify-content: center;
@@ -190,6 +195,7 @@
     letter-spacing: 3px; animation: pulse-error 1.5s infinite;
   }
   
+  /* ===== HOME DASHBOARD ===== */
   .home-dashboard {
     display: none; height: 100vh; position: relative; z-index: 1;
     background: linear-gradient(135deg, #1a0a1a 0%, #0a0a0a 50%, #1a0a0a 100%);
@@ -256,6 +262,7 @@
   .home-card.disabled { opacity: 0.35; cursor: not-allowed; filter: grayscale(1); }
   .home-card.disabled:hover { transform: none; border-color: rgba(255, 0, 64, 0.4); box-shadow: none; }
   
+  /* ===== CATEGORIES VIEW ===== */
   .categories-view { display: none; height: 100vh; flex-direction: column; position: relative; z-index: 1; overflow: hidden; }
   .categories-view.show { display: flex; }
   .cat-view-header {
@@ -303,6 +310,7 @@
     color: var(--text-secondary); border-color: var(--border-dim); background: transparent; animation: pulse-bg 1.5s infinite;
   }
   
+  /* ===== STREAMS VIEW ===== */
   .streams-view { display: none; height: 100vh; flex-direction: column; position: relative; z-index: 1; overflow: hidden; }
   .streams-view.show { display: flex; }
   .streams-header {
@@ -356,6 +364,7 @@
     font-size: 12px; font-family: 'Orbitron', sans-serif; letter-spacing: 1px;
   }
   
+  /* ===== LIVE TV LAYOUT ===== */
   .live-layout { display: none; height: 100vh; flex-direction: column; position: relative; z-index: 1; overflow: hidden; }
   .live-layout.show { display: flex; }
   .live-header {
@@ -508,6 +517,7 @@
   .status-bar.info { background: rgba(0, 240, 255, 0.9); color: #000; }
   .empty-state { padding: 30px 20px; text-align: center; color: var(--text-secondary); font-size: 13px; }
   
+  /* ===== DETAIL LAYOUT ===== */
   .detail-layout { display: none; height: 100vh; flex-direction: column; position: relative; z-index: 1; background: var(--dark-bg); overflow: hidden; }
   .detail-layout.show { display: flex; }
   .detail-header {
@@ -577,6 +587,7 @@
   .video-placeholder-detail .loading-spinner { width: 50px; height: 50px; border: 4px solid var(--border-dim); border-top-color: var(--neon-red); border-radius: 50%; animation: spin 1s linear infinite; }
   .video-placeholder-detail .loading-text { font-family: 'Orbitron', sans-serif; font-size: 16px; color: var(--neon-red); letter-spacing: 3px; animation: pulse-error 1.5s infinite; }
   
+  /* ===== NOW PLAYING INFO (NUEVO) ===== */
   .now-playing-info {
     padding: 12px 16px;
     background: var(--dark-surface);
@@ -603,6 +614,7 @@
     text-overflow: ellipsis;
   }
   
+  /* ===== MODAL OVERLAY ===== */
   .modal-overlay {
     position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px); z-index: 5000;
@@ -658,6 +670,7 @@
   .episode-item .ep-meta { font-size: 10px; color: var(--text-secondary); margin-top: 2px; }
   .episode-item .ep-play { font-size: 18px; color: var(--neon-red); }
   
+  /* Settings Panel */
   .settings-layout { display: none; height: 100vh; flex-direction: column; position: relative; z-index: 1; background: var(--dark-bg); overflow: hidden; }
   .settings-layout.show { display: flex; }
   .settings-content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 30px; overflow-y: auto; }
@@ -688,17 +701,108 @@
   }
   .btn-logout:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255, 0, 64, 0.6); }
   
+  /* Scrollbars */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--dark-bg); }
   ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--neon-red), var(--neon-pink)); border-radius: 3px; }
+
+  /* ===== FOCO VISIBLE PARA CONTROL REMOTO / D-PAD / TECLADO ===== */
+  a:focus, button:focus, input:focus, select:focus, textarea:focus, [tabindex]:focus {
+    outline: 3px solid var(--neon-cyan) !important;
+    outline-offset: 2px;
+    box-shadow: 0 0 18px rgba(0, 240, 255, 0.7) !important;
+    z-index: 5;
+    position: relative;
+  }
+  .login-box input:focus { outline: 3px solid var(--neon-red) !important; box-shadow: 0 0 15px rgba(255, 0, 64, 0.5) !important; }
   
+  /* ===== ALTURA REDUCIDA (celular en horizontal / landscape forzado en APK) ===== */
+  @media (max-height: 480px) {
+    .login-overlay { padding: 10px; align-items: flex-start; }
+    .login-box { padding: 14px 20px; margin: 8px auto; }
+    .login-box h2 { font-size: 16px; margin-bottom: 2px; }
+    .login-box .subtitle { font-size: 8px; margin-bottom: 10px; }
+    .login-error { padding: 8px; margin-bottom: 10px; font-size: 11px; }
+    .auto-load-box { margin-bottom: 10px; }
+    .btn-default-list { padding: 9px; font-size: 12px; }
+    .login-divider { margin-bottom: 10px; font-size: 8px; }
+    .type-toggle { margin-bottom: 10px; padding: 3px; }
+    .type-toggle-btn { padding: 6px 8px; font-size: 11px; }
+    .login-box .form-group { margin-bottom: 8px; }
+    .login-box label { font-size: 9px; margin-bottom: 3px; }
+    .login-box input { padding: 8px 10px; font-size: 12px; }
+    .login-box .remember { margin-top: 8px; font-size: 11px; gap: 6px; }
+    .login-box .btn-login { padding: 10px; font-size: 13px; margin-top: 6px; }
+    /* Xtream: usuario y contrase�a lado a lado para ahorrar altura */
+    #xtreamFields { display: flex; flex-wrap: wrap; gap: 0 10px; }
+    #xtreamFields .form-group:first-child { flex: 1 1 100%; }
+    #xtreamFields .form-group:nth-child(2),
+    #xtreamFields .form-group:nth-child(3) { flex: 1 1 calc(50% - 5px); }
+
+    /* ---- Men� principal (Home) ---- */
+    .home-top-bar { padding: 6px 14px; }
+    .home-logo { font-size: 14px; }
+    .home-status { font-size: 9px; }
+    .home-content { padding: 6px 14px 10px; }
+    .home-grid { gap: 8px; }
+    .home-card { padding: 8px; min-height: 60px; gap: 4px; border-radius: 8px; }
+    .home-card.large { min-height: 128px; }
+    .home-card .card-icon { font-size: 22px; }
+    .home-card.large .card-icon { font-size: 34px; }
+    .home-card .card-label { font-size: 9px; letter-spacing: 1px; }
+    .home-card.large .card-label { font-size: 12px; }
+    .home-card .card-sub { font-size: 7px; }
+    .home-card .sync-status { font-size: 7px; margin-top: 2px; }
+
+    /* ---- Categor�as (Pel�culas / Series) ---- */
+    .cat-view-header { padding: 5px 10px; gap: 6px; }
+    .cat-view-header h1 { font-size: 10px; }
+    .cat-view-header input { padding: 5px 8px; font-size: 10px; }
+    .cat-view-content { padding: 8px; }
+    .cat-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 6px; }
+    .cat-card { padding: 6px; min-height: 60px; gap: 3px; }
+    .cat-card .cat-icon { font-size: 18px; }
+    .cat-card .cat-name { font-size: 8px; }
+    .cat-card .cat-count { font-size: 7px; padding: 1px 4px; }
+
+    /* ---- Detalle (pel�cula/serie) ---- */
+    .detail-header { padding: 5px 10px; gap: 6px; }
+    .detail-header h1 { font-size: 10px; }
+    .btn-fullscreen { padding: 4px 8px; font-size: 8px; }
+    .detail-content { grid-template-columns: 70px 130px 1fr; gap: 6px; padding: 6px; }
+    .detail-poster { font-size: 20px; }
+    .detail-meta-panel { padding: 6px; }
+    .detail-title-text { font-size: 9px; margin-bottom: 4px; }
+    .detail-plot-text { font-size: 7px; max-height: 40px; margin-bottom: 4px; }
+    .detail-meta-tags span { padding: 1px 4px; font-size: 6px; }
+    .btn-play-detail { padding: 5px 8px; font-size: 7px; }
+    .btn-stop-detail, .btn-modal-trigger { padding: 4px 8px; font-size: 6px; }
+
+    /* ---- Modales (info cliente, streams, etc.) ---- */
+    .modal-overlay { padding: 6px; }
+    .modal-box { max-height: 94vh; }
+    .modal-header { padding: 6px 10px; }
+    .modal-header h3 { font-size: 10px; }
+    .modal-body { padding: 6px; }
+
+    /* ---- Live TV: cabecera y paneles overlay m�s compactos ---- */
+    .live-header { padding: 4px 8px; }
+    .live-header h1 { font-size: 10px; }
+    .panel-header { padding: 5px 8px; }
+    .panel-header h3 { font-size: 9px; }
+    .category-item, .channel-item { padding: 6px 8px; }
+  }
+
+  /* ===== M?VIL: ESTRUCTURA HORIZONTAL MINIATURA ===== */
   @media (max-width: 768px) {
+    /* Login - mantener estructura pero compacto */
     .login-box { padding: 20px; max-width: 100%; }
     .login-box h2 { font-size: 20px; }
     .login-box .subtitle { font-size: 10px; margin-bottom: 16px; }
     .login-box input { padding: 10px 12px; font-size: 12px; }
     .login-box .btn-login { padding: 12px; font-size: 13px; }
     
+    /* Home - mantener grid horizontal */
     .home-top-bar { padding: 8px 12px; }
     .home-logo { font-size: 14px; }
     .home-status { font-size: 10px; }
@@ -725,6 +829,7 @@
     .home-card .card-sub { font-size: 7px; }
     .home-card .sync-status { font-size: 7px; }
     
+    /* Categories - mantener grid horizontal */
     .cat-view-header { padding: 6px 10px; gap: 8px; }
     .cat-view-header h1 { font-size: 11px; }
     .btn-back { padding: 5px 10px; font-size: 9px; }
@@ -745,6 +850,7 @@
     .cat-card .cat-name { font-size: 9px; }
     .cat-card .cat-count { font-size: 8px; padding: 2px 6px; }
     
+    /* Streams - mantener grid horizontal */
     .streams-header { padding: 6px 10px; gap: 8px; }
     .streams-header h1 { font-size: 10px; }
     .streams-header input { width: 100px; font-size: 10px; padding: 6px 8px; }
@@ -764,6 +870,7 @@
     .streams-loader .spinner { width: 30px; height: 30px; }
     .streams-loader .text { font-size: 9px; }
     
+    /* Live TV - OVERLAY: una lista a la vez, ancho generoso para nombres completos */
     .live-header { padding: 6px 10px; gap: 8px; }
     .live-header h1 { font-size: 11px; }
     .live-main-new { height: calc(100vh - 36px); }
@@ -804,6 +911,7 @@
     .placeholder h2 { font-size: 12px; }
     .placeholder div { font-size: 24px !important; }
     
+    /* Detail - MANTENER ESTRUCTURA HORIZONTAL DE 3 COLUMNAS */
     .detail-header { padding: 6px 10px; gap: 6px; }
     .detail-header h1 { font-size: 10px; }
     .btn-fullscreen { padding: 4px 8px; font-size: 8px; }
@@ -829,6 +937,7 @@
     .now-playing-info .label { font-size: 7px; }
     .now-playing-info .title { font-size: 9px; }
     
+    /* Modal - mantener estructura horizontal */
     .modal-overlay { padding: 8px; }
     .modal-box { max-height: 90vh; border-radius: 10px; }
     .modal-header { padding: 8px 12px; }
@@ -853,6 +962,7 @@
     .episode-item .ep-meta { font-size: 7px; }
     .episode-item .ep-play { font-size: 12px; }
     
+    /* Settings - mantener estructura */
     .settings-content { padding: 12px; }
     .settings-box { padding: 16px; border-radius: 10px; }
     .settings-box h2 { font-size: 14px; margin-bottom: 12px; }
@@ -864,18 +974,23 @@
     .btn-clear-cache { padding: 8px 12px; font-size: 9px; }
     .btn-logout { padding: 8px 12px; font-size: 9px; }
     
+    /* Sync Info */
     .bg-sync-info { padding: 3px 8px; font-size: 8px; top: 4px; right: 8px; }
     .bg-sync-info .spinner-mini { width: 8px; height: 8px; }
     
+    /* Loading */
     .loading-overlay { padding: 20px; gap: 16px; }
     .loading-spinner-large { width: 50px; height: 50px; }
     .loading-text-large { font-size: 14px; }
     
+    /* Status Bar */
     .status-bar { padding: 6px 8px; font-size: 9px; top: 6px; left: 6px; right: 6px; }
     
+    /* Empty State */
     .empty-state { padding: 16px 10px; font-size: 9px; }
   }
   
+  /* M�vil muy peque�o */
   @media (max-width: 480px) {
     .home-grid { grid-template-columns: 1.5fr 1fr 1fr; }
     .cat-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
@@ -890,17 +1005,20 @@
 </head>
 <body>
 
+<!-- Background Sync Bar -->
 <div class="bg-sync-bar" id="bgSyncBar"><div class="progress" id="bgSyncProgress"></div></div>
 <div class="bg-sync-info" id="bgSyncInfo">
   <div class="spinner-mini"></div>
   <span id="bgSyncText">Sincronizando...</span>
 </div>
 
+<!-- Loading Overlay -->
 <div class="loading-overlay" id="loadingOverlay">
   <div class="loading-spinner-large"></div>
   <div class="loading-text-large" id="loadingTextLarge">CARGANDO</div>
 </div>
 
+<!-- LOGIN -->
 <div class="login-overlay" id="loginOverlay">
   <div class="login-box">
     <h2>IPTV PLAYER</h2>
@@ -909,14 +1027,14 @@
     <div class="login-error" id="loginError"></div>
 
     <div class="auto-load-box">
-      <button type="button" class="btn-default-list" id="btnDefaultList" onclick="loadDefaultList()">📺 Lista por defecto</button>
+      <button type="button" class="btn-default-list" id="btnDefaultList" onclick="loadDefaultList()">? Lista por defecto</button>
     </div>
 
     <div class="login-divider">o ingresa manualmente</div>
 
     <div class="type-toggle">
-      <button type="button" class="type-toggle-btn active" id="typeBtnXtream" onclick="switchLoginType('xtream')">🔌 Xtream</button>
-      <button type="button" class="type-toggle-btn" id="typeBtnM3u" onclick="switchLoginType('m3u')">🧾 Lista M3U</button>
+      <button type="button" class="type-toggle-btn active" id="typeBtnXtream" onclick="switchLoginType('xtream')">? Xtream</button>
+      <button type="button" class="type-toggle-btn" id="typeBtnM3u" onclick="switchLoginType('m3u')">? Lista M3U</button>
     </div>
 
     <div id="xtreamFields">
@@ -929,8 +1047,8 @@
         <input type="text" id="loginUser" placeholder="tu_usuario">
       </div>
       <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" id="loginPass" placeholder="tu_contraseña">
+        <label>Contrase�a</label>
+        <input type="password" id="loginPass" placeholder="tu_contrase�a">
       </div>
     </div>
 
@@ -945,92 +1063,96 @@
       <input type="checkbox" id="rememberMe" checked>
       Recordar cuenta en este dispositivo
     </label>
-    <button class="btn-login" id="btnLogin" onclick="login()">🔌 Conectar</button>
+    <button class="btn-login" id="btnLogin" onclick="login()">? Conectar</button>
   </div>
 </div>
 
+<!-- HOME DASHBOARD -->
 <div class="home-dashboard" id="homeDashboard">
   <div class="home-top-bar">
     <div class="home-logo">IBP<span>PLAYER</span> PRO</div>
     <div class="home-status">
-      <div>👤 <b id="userBadge">usuario</b></div>
+      <div>? <b id="userBadge">usuario</b></div>
       <div id="expBadge">Exp: --</div>
     </div>
   </div>
   <div class="home-content">
     <div class="home-grid">
       <div class="home-card large" onclick="openLive()">
-        <div class="card-icon">📺</div>
+        <div class="card-icon">?</div>
         <div class="card-label">Live TV</div>
         <div class="card-sub">Canales en vivo</div>
       </div>
       <div class="home-card" id="vodCard" onclick="openCategoriesView('vod')">
-        <div class="card-icon">🎬</div>
+        <div class="card-icon">?</div>
         <div class="card-label">Movies</div>
-        <div class="card-sub">Películas</div>
-        <div class="sync-status" id="vodSyncStatus">⏳ Cargando...</div>
+        <div class="card-sub">Pel�culas</div>
+        <div class="sync-status" id="vodSyncStatus">? Cargando...</div>
       </div>
       <div class="home-card" id="seriesCard" onclick="openCategoriesView('series')">
-        <div class="card-icon">📽️</div>
+        <div class="card-icon">?</div>
         <div class="card-label">Series</div>
         <div class="card-sub">Temporadas</div>
-        <div class="sync-status" id="seriesSyncStatus">⏳ Cargando...</div>
+        <div class="sync-status" id="seriesSyncStatus">? Cargando...</div>
       </div>
       <div class="home-card settings" onclick="openSettings()">
-        <div class="card-icon">⚙️</div>
+        <div class="card-icon">?</div>
         <div class="card-label">Settings</div>
-        <div class="card-sub">Configuración</div>
+        <div class="card-sub">Configuraci�n</div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- CATEGORIES VIEW -->
 <div class="categories-view" id="categoriesView">
   <div class="cat-view-header">
     <div class="left">
-      <button class="btn-back" onclick="goHome()">← Volver</button>
-      <h1 id="catViewTitle">🎬 Películas</h1>
+      <button class="btn-back" onclick="goHome()">? Volver</button>
+      <h1 id="catViewTitle">? Pel�culas</h1>
     </div>
-    <input type="text" id="catViewSearch" placeholder="🔍 Buscar..." oninput="debounceSearch()">
+    <input type="text" id="catViewSearch" placeholder="? Buscar..." oninput="debounceSearch()">
   </div>
   <div class="cat-view-content">
     <div class="cat-grid" id="catGrid"></div>
   </div>
 </div>
 
+<!-- STREAMS VIEW -->
 <div class="streams-view" id="streamsView">
   <div class="streams-header">
     <div class="left">
-      <button class="btn-back" onclick="backToCategories()">← Categorías</button>
-      <h1 id="streamsTitle">Categoría</h1>
+      <button class="btn-back" onclick="backToCategories()">? Categor�as</button>
+      <h1 id="streamsTitle">Categor�a</h1>
     </div>
-    <input type="text" id="streamsSearch" placeholder="🔍 Buscar..." oninput="debounceStreamSearch()">
+    <input type="text" id="streamsSearch" placeholder="? Buscar..." oninput="debounceStreamSearch()">
   </div>
   <div class="streams-content" id="streamsContent">
     <div class="streams-grid" id="streamsGrid"></div>
   </div>
 </div>
 
+<!-- LIVE TV -->
 <div class="live-layout" id="liveLayout">
   <div class="live-header">
-    <button class="btn-back" onclick="goHome()">← Volver</button>
-    <h1>📺 LIVE TV</h1>
+    <button class="btn-back" onclick="goHome()">? Volver</button>
+    <h1>? LIVE TV</h1>
   </div>
   <div class="live-main-new">
-    <button class="btn-toggle-panels" id="btnTogglePanels" onclick="toggleLivePanels()" title="Mostrar/ocultar listas">☰</button>
+    <button class="btn-toggle-panels" id="btnTogglePanels" onclick="toggleLivePanels()" title="Mostrar/ocultar listas">?</button>
     <div class="live-overlay-panels" id="liveOverlayPanels">
       <aside class="categories-panel">
-        <div class="panel-header"><h3>📂 CATEGORÍAS</h3></div>
+        <div class="panel-header"><h3>? CATEGOR?AS</h3></div>
         <div class="categories-list" id="liveCategoriesList"></div>
       </aside>
       <aside class="channels-panel" id="channelsPanel">
         <div class="panel-header">
-          <button class="btn-panel-back" onclick="backToCategoriesMobile()">← Categorías</button>
-          <h3 id="channelsPanelTitle">📺 CANALES</h3>
-          <input type="text" id="liveSearch" placeholder="🔍 Buscar..." oninput="filterLive()">
+          <button class="btn-panel-back" onclick="backToCategoriesMobile()">? Categor�as</button>
+          <h3 id="channelsPanelTitle">? CANALES</h3>
+          <input type="text" id="liveSearch" placeholder="? Buscar..." oninput="filterLive()">
         </div>
         <div class="channels-list" id="liveList">
-          <div class="empty-state"><div style="font-size:20px; margin-bottom:4px;">👈</div><div>Selecciona categoría</div></div>
+          <div class="empty-state"><div style="font-size:20px; margin-bottom:4px;">?</div><div>Selecciona categor�a</div></div>
         </div>
       </aside>
     </div>
@@ -1038,80 +1160,89 @@
       <div class="video-container-fixed" id="videoContainerFixed">
         <div class="status-bar" id="statusBarLive"></div>
         <div class="placeholder" id="placeholderLive">
-          <div style="font-size:40px; margin-bottom:8px;">📺</div>
+          <div style="font-size:40px; margin-bottom:8px;">?</div>
           <h2>Reproductor</h2>
           <p>Selecciona un canal</p>
         </div>
         <video id="videoLive" style="display:none" playsinline></video>
         <div class="custom-controls" id="controlsLive">
-          <button class="cc-btn cc-play" id="ccPlayLive" onclick="ccTogglePlay('videoLive')">▶️</button>
+          <button class="cc-btn cc-play" id="ccPlayLive" onclick="ccTogglePlay('videoLive')">?</button>
           <span class="cc-time" id="ccTimeLive">0:00 / LIVE</span>
           <input type="range" class="cc-seek" id="ccSeekLive" min="0" max="100" value="0" style="display:none" oninput="ccSeek('videoLive', this.value)">
-          <button class="cc-btn cc-mute" id="ccMuteLive" onclick="ccToggleMute('videoLive')">🔊</button>
+          <button class="cc-btn cc-mute" id="ccMuteLive" onclick="ccToggleMute('videoLive')">?</button>
           <input type="range" class="cc-volume" id="ccVolumeLive" min="0" max="100" value="100" oninput="ccSetVolume('videoLive', this.value)">
-          <button class="cc-btn" onclick="ccFullscreen('videoLive')">⛶</button>
+          <button class="cc-btn" onclick="ccFullscreen('videoLive')">?</button>
         </div>
       </div>
       <div class="channel-info-fixed" id="channelInfo" style="display:none;">
-        <div class="channel-info-logo" id="channelInfoLogo">📺</div>
+        <div class="channel-info-logo" id="channelInfoLogo">?</div>
         <div class="channel-info-details">
           <div class="label">REPRODUCIENDO</div>
           <div class="title" id="channelInfoTitle">--</div>
           <div class="category" id="channelInfoCategory">--</div>
         </div>
-        <button class="btn-expand" onclick="expandPlayer()" title="Expandir">⛶</button>
+        <button class="btn-expand" onclick="expandPlayer()" title="Expandir">?</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- DETAIL LAYOUT -->
 <div class="detail-layout" id="detailLayout">
   <div class="detail-header">
-    <button class="btn-back" onclick="backFromDetail()">← Volver</button>
+    <button class="btn-back" onclick="backFromDetail()">? Volver</button>
     <h1 id="detailHeaderTitle">Detalle</h1>
-    <button class="btn-fullscreen" onclick="toggleFullscreen()">⛶ Full</button>
+    <button class="btn-fullscreen" onclick="toggleFullscreen()">? Full</button>
   </div>
   <div class="detail-main">
     <div id="detailDynamicContent"></div>
   </div>
 </div>
 
+<!-- MODAL OVERLAY -->
 <div class="modal-overlay" id="contentModal" onclick="closeContentModal(event)">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-header">
       <h3 id="modalTitle">Contenido</h3>
-      <button class="btn-close-modal" onclick="closeContentModal()">✕</button>
+      <button class="btn-close-modal" onclick="closeContentModal()">?</button>
     </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-body" id="modalBody">
+      <!-- Contenido din�mico aqu� -->
+    </div>
   </div>
 </div>
 
+<!-- SETTINGS -->
 <div class="settings-layout" id="settingsLayout">
   <div class="detail-header">
-    <button class="btn-back" onclick="goHome()">← Volver</button>
-    <h1>⚙️ CONFIGURACIÓN</h1>
+    <button class="btn-back" onclick="goHome()">? Volver</button>
+    <h1>? CONFIGURACI?N</h1>
   </div>
   <div class="settings-content">
     <div class="settings-box">
-      <h2>INFORMACIÓN DE CUENTA</h2>
+      <h2>INFORMACI?N DE CUENTA</h2>
       <div class="settings-info">
-        <div class="settings-info-row"><span class="settings-info-label">👤 Usuario</span><span class="settings-info-value" id="settingsUsername">--</span></div>
-        <div class="settings-info-row"><span class="settings-info-label">📊 Estado</span><span class="settings-info-value" id="settingsStatus">--</span></div>
-        <div class="settings-info-row"><span class="settings-info-label">📅 Expiración</span><span class="settings-info-value" id="settingsExpDate">--</span></div>
-        <div class="settings-info-row"><span class="settings-info-label">🔌 Conexiones</span><span class="settings-info-value" id="settingsConnections">--</span></div>
+        <div class="settings-info-row"><span class="settings-info-label">? Usuario</span><span class="settings-info-value" id="settingsUsername">--</span></div>
+        <div class="settings-info-row"><span class="settings-info-label">? Estado</span><span class="settings-info-value" id="settingsStatus">--</span></div>
+        <div class="settings-info-row"><span class="settings-info-label">? Expiraci�n</span><span class="settings-info-value" id="settingsExpDate">--</span></div>
+        <div class="settings-info-row"><span class="settings-info-label">? Conexiones</span><span class="settings-info-value" id="settingsConnections">--</span></div>
       </div>
       <div class="settings-actions">
-        <button class="btn-clear-cache" onclick="clearCache()">🗑️ Limpiar Caché</button>
-        <button class="btn-logout" onclick="logout()">🚪 Cerrar Sesión</button>
+        <button class="btn-clear-cache" onclick="clearCache()">? Limpiar Cach�</button>
+        <button class="btn-logout" onclick="logout()">? Cerrar Sesi�n</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
+/* ============================================================
+   ARQUITECTURA DE CARGA PROFESIONAL + MODAL + AUTO-PLAY SERIES
+   ============================================================ */
+
 const API = { server: '', user: '', pass: '' };
 let userInfo = null;
-let sourceType = 'xtream';
+let sourceType = 'xtream'; // 'xtream' | 'm3u'
 let m3uUrl = '';
 let m3uIdCounter = 0;
 
@@ -1184,7 +1315,7 @@ async function apiCall(action, extra = '') {
     return await resp.json();
   } catch(e) {
     clearTimeout(timeoutId);
-    if (e.name === 'AbortError') throw new Error('Timeout de conexión');
+    if (e.name === 'AbortError') throw new Error('Timeout de conexi�n');
     throw e;
   }
 }
@@ -1210,13 +1341,13 @@ async function loginXtream(overrideCreds) {
   const btn = document.getElementById('btnLogin');
   
   if (!url || !user || !pass) {
-    errorEl.textContent = '❌ Completa todos los campos';
+    errorEl.textContent = '? Completa todos los campos';
     errorEl.classList.add('show');
     return;
   }
   
   btn.disabled = true;
-  btn.textContent = '⏳ Conectando...';
+  btn.textContent = '? Conectando...';
   errorEl.classList.remove('show');
   
   const parsed = parsearEntrada(url, user, pass);
@@ -1224,9 +1355,9 @@ async function loginXtream(overrideCreds) {
   
   try {
     userInfo = await apiCall('');
-    if (!userInfo.user_info || userInfo.user_info.auth === 0) throw new Error('Credenciales inválidas');
+    if (!userInfo.user_info || userInfo.user_info.auth === 0) throw new Error('Credenciales inv�lidas');
     
-    showLoading('CARGANDO CATEGORÍAS');
+    showLoading('CARGANDO CATEGOR?AS');
     await Promise.all([loadCategoriesOnly('vod'), loadCategoriesOnly('series'), loadCategoriesOnly('live')]);
     
     if (document.getElementById('rememberMe').checked) {
@@ -1239,13 +1370,13 @@ async function loginXtream(overrideCreds) {
     startBackgroundLoading('vod');
     startBackgroundLoading('series');
   } catch (e) {
-    errorEl.textContent = '❌ ' + e.message;
+    errorEl.textContent = '? ' + e.message;
     errorEl.classList.add('show');
     API.server = ''; API.user = ''; API.pass = '';
     hideLoading();
   } finally {
     btn.disabled = false;
-    btn.textContent = '🔌 Conectar';
+    btn.textContent = '? Conectar';
   }
 }
 
@@ -1255,13 +1386,13 @@ async function loginM3U(overrideUrl, preloadedText) {
   const btn = document.getElementById('btnLogin');
 
   if (!url) {
-    errorEl.textContent = '❌ Ingresa la URL de la lista M3U';
+    errorEl.textContent = '? Ingresa la URL de la lista M3U';
     errorEl.classList.add('show');
     return;
   }
 
   btn.disabled = true;
-  btn.textContent = '⏳ Conectando...';
+  btn.textContent = '? Conectando...';
   errorEl.classList.remove('show');
   showLoading('DESCARGANDO LISTA M3U');
 
@@ -1274,7 +1405,7 @@ async function loginM3U(overrideUrl, preloadedText) {
     }
 
     const { cats, streamsByCat } = parseM3U(text);
-    if (cats.length === 0) throw new Error('La lista no tiene canales válidos');
+    if (cats.length === 0) throw new Error('La lista no tiene canales v�lidos');
 
     m3uUrl = url;
     categories.live = cats;
@@ -1293,17 +1424,18 @@ async function loginM3U(overrideUrl, preloadedText) {
     hideLoading();
     enterHome();
   } catch (e) {
-    errorEl.textContent = '❌ ' + e.message;
+    errorEl.textContent = '? ' + e.message;
     errorEl.classList.add('show');
     m3uUrl = '';
     hideLoading();
   } finally {
     btn.disabled = false;
-    btn.textContent = '🔌 Conectar';
+    btn.textContent = '? Conectar';
   }
 }
 
 // ===== LISTA POR DEFECTO (repo propio) =====
+// ? IMPORTANTE: usar rama 'main' (no un commit fijo) para que siempre obtenga la �ltima versi�n
 const DEFAULT_LIST_URL = 'https://raw.githubusercontent.com/Dito84/NDQVER/main/Milista.txt';
 
 async function loadDefaultList() {
@@ -1311,48 +1443,26 @@ async function loadDefaultList() {
   const btn = document.getElementById('btnDefaultList');
 
   btn.disabled = true;
-  btn.textContent = '⏳ Descargando...';
+  btn.textContent = '? Conectando...';
   errorEl.classList.remove('show');
-  showLoading('OBTENIENDO LISTA DEL SERVIDOR');
+  showLoading('DETECTANDO FORMATO');
 
   try {
-    console.log('📡 Descargando desde:', DEFAULT_LIST_URL);
+    console.log('? Descargando desde:', DEFAULT_LIST_URL);
+    const resolved = await resolveIndirection(DEFAULT_LIST_URL);
+    console.log('? Contenido descargado (' + resolved.text.length + ' bytes):', resolved.text);
+    console.log('? URL final:', resolved.finalUrl);
     
-    // Descargar el contenido de Milista.txt
-    const resp = await fetch(DEFAULT_LIST_URL, { 
-      headers: { 'Accept': 'text/plain, */*' },
-      cache: 'no-cache'
-    });
-    
-    if (!resp.ok) {
-      throw new Error('HTTP ' + resp.status + ' al descargar la lista');
-    }
-    
-    const listContent = await resp.text();
-    console.log('📄 Contenido descargado:', listContent);
-    console.log('📏 Longitud:', listContent.length);
-    
-    // Verificar si está vacío o solo contiene espacios
-    const trimmedContent = listContent.trim();
-    if (!trimmedContent) {
-      throw new Error('El archivo Milista.txt está vacío o solo contiene espacios');
-    }
+    if (!resolved.text.trim()) throw new Error('El archivo est� vac�o');
 
-    // Analizar el contenido para detectar el formato
-    console.log('🔍 Detectando formato...');
-    const detected = detectFormatFromContent(trimmedContent);
-    console.log('✅ Formato detectado:', detected);
-
-    if (detected.type === 'unknown') {
-      throw new Error('No se reconoció el formato. Contenido: ' + trimmedContent.substring(0, 100));
-    }
+    const detected = detectFormat(resolved.text.trim(), resolved.finalUrl);
+    console.log('? Formato detectado:', detected);
 
     if (detected.type === 'm3u') {
       switchLoginType('m3u');
-      document.getElementById('loginM3uUrl').value = detected.url;
+      document.getElementById('loginM3uUrl').value = resolved.finalUrl;
       hideLoading();
-      await loginM3U(detected.url);
-      return;
+      return loginM3U(resolved.finalUrl, resolved.text);
     }
 
     if (detected.type === 'xtream') {
@@ -1361,209 +1471,82 @@ async function loadDefaultList() {
       document.getElementById('loginUser').value = detected.user;
       document.getElementById('loginPass').value = detected.pass;
       hideLoading();
-      await loginXtream({ server: detected.server, user: detected.user, pass: detected.pass });
-      return;
+      return loginXtream({ server: detected.server, user: detected.user, pass: detected.pass });
     }
 
-    throw new Error('Formato no soportado: ' + detected.type);
+    throw new Error('No se reconoci� el formato (ni Xtream ni M3U)');
   } catch (e) {
-    console.error('❌ Error:', e);
-    errorEl.textContent = '❌ ' + e.message;
+    console.error('? Error:', e);
+    errorEl.textContent = '? ' + e.message;
     errorEl.classList.add('show');
     hideLoading();
   } finally {
     btn.disabled = false;
-    btn.textContent = '📺 Lista por defecto';
+    btn.textContent = '? Lista por defecto';
   }
 }
 
-// Detecta el formato analizando el contenido del archivo
-function detectFormatFromContent(text) {
-  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
-  
-  console.log('📋 Líneas encontradas:', lines.length);
-  console.log('📋 Primera línea:', lines[0]);
-  
-  // Si solo hay una línea, procesarla como tal
-  if (lines.length === 1) {
-    const line = lines[0];
-    
-    // 1) URL completa de Xtream con username y password en query string
-    const xtreamUrlMatch = line.match(/^(https?:\/\/[^:\/\s]+(?::\d+)?)[^#\s]*username=([^&\s]+)[^#\s]*password=([^&\s]+)/i);
-    if (xtreamUrlMatch) {
-      return { 
-        type: 'xtream', 
-        server: xtreamUrlMatch[1], 
-        user: xtreamUrlMatch[2], 
-        pass: xtreamUrlMatch[3] 
-      };
+// Sigue hasta 3 saltos si el archivo apuntado solo contiene otra URL (indirecci�n)
+// Agrega anti-cach� con timestamp para evitar que GitHub o el navegador devuelvan una versi�n vieja
+async function resolveIndirection(url) {
+  let currentUrl = url;
+  let text = '';
+  for (let hop = 0; hop < 3; hop++) {
+    // En el primer salto agregamos ?t=timestamp para forzar descarga fresca
+    const cacheBuster = (hop === 0 && !currentUrl.includes('?')) ? '?t=' + Date.now() : '';
+    const resp = await fetch(currentUrl + cacheBuster, { 
+      headers: { 'Accept': 'text/plain, */*' },
+      cache: 'no-cache'
+    });
+    if (!resp.ok) throw new Error('HTTP ' + resp.status + ' al descargar la lista');
+    text = await resp.text();
+    const trimmed = text.trim();
+    const isBareUrl = /^https?:\/\/\S+$/i.test(trimmed) && trimmed.split(/\r?\n/).length === 1;
+    if (isBareUrl && trimmed !== currentUrl) {
+      currentUrl = trimmed;
+      continue;
     }
-
-    // 2) URL M3U directa (termina en .m3u o .m3u8)
-    if (/\.m3u8?(\?|$)/i.test(line)) {
-      return { type: 'm3u', url: line };
-    }
-
-    // 3) Contenido M3U directo (empieza con #EXTM3U)
-    if (/^#EXTM3U/i.test(line)) {
-      return { type: 'm3u', url: DEFAULT_LIST_URL };
-    }
-
-    // 4) URL genérica (asumir M3U si es una URL válida)
-    if (/^https?:\/\/\S+$/i.test(line)) {
-      return { type: 'm3u', url: line };
-    }
-
-    return { type: 'unknown', content: line };
+    break;
   }
-  
-  // Si hay múltiples líneas
-  if (lines.length >= 2) {
-    // 5) Formato etiquetado: URL/Servidor, Usuario, Contraseña en líneas separadas
-    const serverLine = text.match(/(?:url|servidor|server|host|dns)\s*[:=]\s*(\S+)/i);
-    const userLine = text.match(/(?:usuario|user(?:name)?)\s*[:=]\s*(\S+)/i);
-    const passLine = text.match(/(?:contraseñ?a|clave|pass(?:word)?|pwd)\s*[:=]\s*(\S+)/i);
-    
-    if (serverLine && userLine && passLine) {
-      return { 
-        type: 'xtream', 
-        server: serverLine[1], 
-        user: userLine[1], 
-        pass: passLine[1] 
-      };
-    }
+  return { finalUrl: currentUrl, text };
+}
 
-    // 6) Tres líneas simples: servidor, usuario, contraseña
-    if (lines.length >= 3) {
-      const possibleServer = lines[0];
-      const possibleUser = lines[1];
-      const possiblePass = lines[2];
-      
-      // Validar que la primera línea parezca una URL de servidor
-      if (/^https?:\/\/[^:\s]+(?::\d+)?/i.test(possibleServer)) {
-        return { 
-          type: 'xtream', 
-          server: possibleServer, 
-          user: possibleUser, 
-          pass: possiblePass 
-        };
-      }
-    }
-
-    // 7) Dos líneas: podría ser URL + token, o servidor + usuario (sin contraseña)
-    if (lines.length === 2) {
-      const firstLine = lines[0];
-      const secondLine = lines[1];
-      
-      // Si la primera línea es una URL de Xtream
-      if (/^https?:\/\/[^:\/\s]+(?::\d+)?/i.test(firstLine)) {
-        // Asumir que es M3U si no tiene credenciales
-        return { type: 'm3u', url: firstLine };
-      }
-    }
+function detectFormat(text, sourceUrl) {
+  // 1) La propia URL ya trae usuario/contrase�a Xtream (get.php, player_api.php, etc.)
+  if (sourceUrl) {
+    const urlQsMatch = sourceUrl.match(/^(https?:\/\/[^:\/\s]+:\d+).*username=([^&\s]+).*password=([^&\s]+)/i);
+    if (urlQsMatch) return { type: 'xtream', server: urlQsMatch[1], user: urlQsMatch[2], pass: urlQsMatch[3] };
   }
 
-  // 8) JSON con credenciales
+  // 2) M3U playlist
+  if (/^#EXTM3U/i.test(text) || /#EXTINF/i.test(text)) {
+    return { type: 'm3u' };
+  }
+
+  // 3) JSON con credenciales Xtream
   try {
     const obj = JSON.parse(text);
     const server = obj.server || obj.host || obj.dns || obj.url;
     const user = obj.user || obj.username || obj.usuario;
-    const pass = obj.pass || obj.password || obj.clave || obj.contraseña;
-    if (server && user && pass) {
-      return { type: 'xtream', server, user, pass };
-    }
+    const pass = obj.pass || obj.password || obj.clave || obj.contrase�a;
+    if (server && user && pass) return { type: 'xtream', server, user, pass };
   } catch (e) { /* no es JSON */ }
 
-  // 9) Contenido M3U directo (empieza con #EXTM3U en cualquier línea)
-  if (/^#EXTM3U/im.test(text)) {
-    return { type: 'm3u', url: DEFAULT_LIST_URL };
-  }
+  // 4) URL tipo player_api con username= y password= en query string (dentro del texto)
+  const qsMatch = text.match(/^(https?:\/\/[^:\/\s]+:\d+).*username=([^&\s]+).*password=([^&\s]+)/i);
+  if (qsMatch) return { type: 'xtream', server: qsMatch[1], user: qsMatch[2], pass: qsMatch[3] };
 
-  return { type: 'unknown', content: text.substring(0, 200) };
-}
-	
-// Detecta el formato analizando el contenido del archivo
-function detectFormatFromContent(text) {
-  // 1) URL completa de Xtream con username y password en query string
-  const xtreamUrlMatch = text.match(/(https?:\/\/[^:\/\s]+(?::\d+)?[^#\s]*username=([^&\s]+)&password=([^&\s]+)[^\s]*)/i);
-  if (xtreamUrlMatch) {
-    const fullUrl = xtreamUrlMatch[1];
-    const serverMatch = fullUrl.match(/^(https?:\/\/[^:\/\s]+(?::\d+)?)/i);
-    return { 
-      type: 'xtream', 
-      server: serverMatch ? serverMatch[1] : '', 
-      user: xtreamUrlMatch[2], 
-      pass: xtreamUrlMatch[3] 
-    };
-  }
-
-  // 2) URL M3U directa
-  const m3uUrlMatch = text.match(/(https?:\/\/\S+\.m3u8?(?:\?\S*)?)/i);
-  if (m3uUrlMatch) {
-    return { type: 'm3u', url: m3uUrlMatch[1] };
-  }
-
-  // 3) Contenido M3U directo (empieza con #EXTM3U)
-  if (/^#EXTM3U/i.test(text)) {
-    // Si es contenido M3U directo, necesitamos una URL. Intentamos usar la URL del repositorio
-    return { type: 'm3u', url: DEFAULT_LIST_URL };
-  }
-
-  // 4) Formato etiquetado: URL/Servidor, Usuario, Contraseña en líneas separadas
-  const serverLine = text.match(/(?:url|servidor|server|host|dns)\s*[:=]\s*(\S+)/i);
+  // 5) L�neas etiquetadas: URL/Servidor, Usuario, Contrase�a/Clave
+  const serverLine = text.match(/(?:url|servidor|server|host)\s*[:=]\s*(\S+)/i);
   const userLine = text.match(/(?:usuario|user(?:name)?)\s*[:=]\s*(\S+)/i);
-  const passLine = text.match(/(?:contraseñ?a|clave|pass(?:word)?|pwd)\s*[:=]\s*(\S+)/i);
-  
+  const passLine = text.match(/(?:contrase�?a|clave|pass(?:word)?)\s*[:=]\s*(\S+)/i);
   if (serverLine && userLine && passLine) {
-    return { 
-      type: 'xtream', 
-      server: serverLine[1], 
-      user: userLine[1], 
-      pass: passLine[1] 
-    };
+    return { type: 'xtream', server: serverLine[1], user: userLine[1], pass: passLine[1] };
   }
 
-  // 5) JSON con credenciales
-  try {
-    const obj = JSON.parse(text);
-    const server = obj.server || obj.host || obj.dns || obj.url;
-    const user = obj.user || obj.username || obj.usuario;
-    const pass = obj.pass || obj.password || obj.clave || obj.contraseña;
-    if (server && user && pass) {
-      return { type: 'xtream', server, user, pass };
-    }
-  } catch (e) { /* no es JSON */ }
-
-  // 6) Líneas simples: primera línea es servidor, segunda usuario, tercera contraseña
-  const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
-  if (lines.length >= 3) {
-    const possibleServer = lines[0];
-    const possibleUser = lines[1];
-    const possiblePass = lines[2];
-    
-    // Validar que parezca una URL de servidor
-    if (/^https?:\/\/[^:\s]+(?::\d+)?/i.test(possibleServer)) {
-      return { 
-        type: 'xtream', 
-        server: possibleServer, 
-        user: possibleUser, 
-        pass: possiblePass 
-      };
-    }
-  }
-
-  // 7) Si solo hay una línea y parece una URL M3U
-  if (lines.length === 1 && /^https?:\/\/\S+$/i.test(lines[0])) {
-    const singleUrl = lines[0];
-    // Verificar si es URL de Xtream
-    if (/username=.*password=/i.test(singleUrl)) {
-      const match = singleUrl.match(/^(https?:\/\/[^:\/\s]+(?::\d+)?).*username=([^&\s]+).*password=([^&\s]+)/i);
-      if (match) {
-        return { type: 'xtream', server: match[1], user: match[2], pass: match[3] };
-      }
-    }
-    // Si no, asumimos que es M3U
-    return { type: 'm3u', url: singleUrl };
+  // 6) Si el propio archivo es una URL de un .m3u/.m3u8 (m3u alojado en otra ruta)
+  if (sourceUrl && /\.m3u8?(\?|$)/i.test(sourceUrl)) {
+    return { type: 'm3u' };
   }
 
   return { type: 'unknown' };
@@ -1571,7 +1554,7 @@ function detectFormatFromContent(text) {
 
 function parseM3U(text) {
   const lines = text.split(/\r?\n/);
-  const catMap = new Map();
+  const catMap = new Map(); // name -> category_id
   const cats = [];
   const streamsByCat = {};
   m3uIdCounter = 0;
@@ -1660,11 +1643,11 @@ function updateSyncUI() {
   const bgSyncInfo = document.getElementById('bgSyncInfo');
   const bgSyncText = document.getElementById('bgSyncText');
   
-  if (loadState.vod.complete) { if (vodStatus) vodStatus.textContent = `✅ ${loadState.vod.total} cat.`; } 
-  else if (loadState.vod.loading) { if (vodStatus) vodStatus.textContent = `⏳ ${loadState.vod.progress}/${loadState.vod.total}`; }
+  if (loadState.vod.complete) { if (vodStatus) vodStatus.textContent = `? ${loadState.vod.total} cat.`; } 
+  else if (loadState.vod.loading) { if (vodStatus) vodStatus.textContent = `? ${loadState.vod.progress}/${loadState.vod.total}`; }
   
-  if (loadState.series.complete) { if (seriesStatus) seriesStatus.textContent = `✅ ${loadState.series.total} cat.`; } 
-  else if (loadState.series.loading) { if (seriesStatus) seriesStatus.textContent = `⏳ ${loadState.series.progress}/${loadState.series.total}`; }
+  if (loadState.series.complete) { if (seriesStatus) seriesStatus.textContent = `? ${loadState.series.total} cat.`; } 
+  else if (loadState.series.loading) { if (seriesStatus) seriesStatus.textContent = `? ${loadState.series.progress}/${loadState.series.total}`; }
   
   const totalAll = loadState.vod.total + loadState.series.total;
   const progressAll = loadState.vod.progress + loadState.series.progress;
@@ -1691,6 +1674,7 @@ function updateCategoryCount(type, categoryId) {
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// ===== NAVEGACI?N =====
 function enterHome() {
   document.getElementById('loginOverlay').classList.add('hidden');
   hideAllViews();
@@ -1701,7 +1685,7 @@ function enterHome() {
 
   if (sourceType === 'm3u') {
     document.getElementById('userBadge').textContent = 'Lista M3U';
-    document.getElementById('expBadge').textContent = categories.live.length + ' categorías';
+    document.getElementById('expBadge').textContent = categories.live.length + ' categor�as';
   } else if (userInfo) {
     const ui = userInfo.user_info;
     const expDate = ui.exp_date ? new Date(ui.exp_date * 1000).toLocaleDateString() : 'Ilimitada';
@@ -1721,15 +1705,16 @@ function hideAllViews() {
     .forEach(id => document.getElementById(id).classList.remove('show'));
 }
 
+// ===== CATEGORIES VIEW =====
 async function openCategoriesView(type) {
   if (sourceType === 'm3u') {
-    alert('🚫 Las listas M3U solo incluyen canales en vivo. Películas y Series no están disponibles en este modo.');
+    alert('? Las listas M3U solo incluyen canales en vivo. Pel�culas y Series no est�n disponibles en este modo.');
     return;
   }
   currentType = type;
   hideAllViews();
   document.getElementById('categoriesView').classList.add('show');
-  document.getElementById('catViewTitle').textContent = type === 'vod' ? '🎬 Películas' : '📽️ Series';
+  document.getElementById('catViewTitle').textContent = type === 'vod' ? '? Pel�culas' : '? Series';
   document.getElementById('catViewSearch').value = '';
   
   if (categories[type].length === 0) await loadCategoriesOnly(type);
@@ -1742,12 +1727,12 @@ function renderCategoriesGrid(filter = '') {
   const grid = document.getElementById('catGrid');
   const cats = categories[currentType];
   if (cats.length === 0) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">📭 No hay categorías</div>';
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">? No hay categor�as</div>';
     return;
   }
   let filtered = filter ? cats.filter(c => (c.category_name || '').toLowerCase().includes(filter.toLowerCase())) : cats;
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">🔍 Sin resultados</div>';
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">? Sin resultados</div>';
     return;
   }
   
@@ -1755,11 +1740,11 @@ function renderCategoriesGrid(filter = '') {
   filtered.forEach((cat, idx) => {
     const catId = String(cat.category_id);
     const cached = streamsCache[currentType][catId];
-    const countText = cached ? `${cached.length} items` : '⏳ Cargando...';
+    const countText = cached ? `${cached.length} items` : '? Cargando...';
     const countClass = cached ? '' : 'loading';
     html += `
       <div class="cat-card" data-cat-id="${catId}" onclick="openStreamsOfCategory('${catId}', '${escapeHtml(cat.category_name || '')}')" style="animation: fadeIn 0.3s ease ${Math.min(idx * 0.02, 0.5)}s both">
-        <div class="cat-icon">${currentType === 'vod' ? '🎬' : '📽️'}</div>
+        <div class="cat-icon">${currentType === 'vod' ? '?' : '?'}</div>
         <div class="cat-name">${escapeHtml(cat.category_name || 'Sin nombre')}</div>
         <div class="cat-count ${countClass}">${countText}</div>
       </div>`;
@@ -1789,12 +1774,12 @@ async function performGlobalSearch(query) {
       results = (Array.isArray(allStreams) ? allStreams : []).filter(s => (s.name || s.title || '').toLowerCase().includes(query.toLowerCase())).slice(0, 200);
     }
     if (results.length === 0) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">🔍 Sin resultados</div>`;
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">? Sin resultados</div>`;
       return;
     }
     currentStreams = results;
     renderedCount = 0;
-    document.getElementById('catViewTitle').textContent = `🔍 Resultados: ${results.length}`;
+    document.getElementById('catViewTitle').textContent = `? Resultados: ${results.length}`;
     const streamsGrid = document.createElement('div');
     streamsGrid.className = 'streams-grid';
     streamsGrid.id = 'searchResultsGrid';
@@ -1802,16 +1787,17 @@ async function performGlobalSearch(query) {
     grid.appendChild(streamsGrid);
     renderMoreStreams('searchResultsGrid');
   } catch (e) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">❌ Error: ${escapeHtml(e.message)}</div>`;
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">? Error: ${escapeHtml(e.message)}</div>`;
   }
 }
 
+// ===== STREAMS VIEW =====
 async function openStreamsOfCategory(categoryId, categoryName) {
   currentCategoryId = categoryId;
   currentCategoryName = categoryName;
   hideAllViews();
   document.getElementById('streamsView').classList.add('show');
-  document.getElementById('streamsTitle').textContent = categoryName || 'Categoría';
+  document.getElementById('streamsTitle').textContent = categoryName || 'Categor�a';
   document.getElementById('streamsSearch').value = '';
   
   const grid = document.getElementById('streamsGrid');
@@ -1823,12 +1809,12 @@ async function openStreamsOfCategory(categoryId, categoryName) {
     currentStreams = streams;
     renderedCount = 0;
     if (streams.length === 0) {
-      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">📭 Vacía</div>';
+      grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">? Vac�a</div>';
       return;
     }
     renderMoreStreams('streamsGrid');
   } catch (e) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">❌ Error: ${escapeHtml(e.message)}</div>`;
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">? Error: ${escapeHtml(e.message)}</div>`;
   }
 }
 
@@ -1837,7 +1823,7 @@ function renderMoreStreams(gridId) {
   if (!grid) return;
   const batch = currentStreams.slice(renderedCount, renderedCount + PAGE_SIZE);
   if (batch.length === 0 && renderedCount === 0) {
-    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">📭 Sin contenido</div>';
+    grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1;padding:60px">? Sin contenido</div>';
     return;
   }
   const loader = grid.querySelector('.streams-loader'); if (loader) loader.remove();
@@ -1846,13 +1832,13 @@ function renderMoreStreams(gridId) {
   let html = '';
   batch.forEach(item => {
     const id = item.stream_id || item.series_id || item.num;
-    const name = item.name || item.title || 'Sin título';
+    const name = item.name || item.title || 'Sin t�tulo';
     const poster = item.cover || item.stream_icon || '';
     const year = item.year || '';
     const rating = item.rating || '';
-    const icon = currentType === 'vod' ? '🎬' : '📽️';
+    const icon = currentType === 'vod' ? '?' : '?';
     const posterHtml = poster ? `<img src="${poster}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='${icon}'">` : icon;
-    const ratingBadge = rating && rating !== '' && rating !== '0' ? `<div class="rating-badge">⭐ ${rating}</div>` : '';
+    const ratingBadge = rating && rating !== '' && rating !== '0' ? `<div class="rating-badge">? ${rating}</div>` : '';
     html += `
       <div class="stream-card" onclick="openDetail(${id})">
         <div class="poster">${posterHtml}${ratingBadge}</div>
@@ -1865,7 +1851,7 @@ function renderMoreStreams(gridId) {
   grid.insertAdjacentHTML('beforeend', html);
   renderedCount += batch.length;
   if (renderedCount >= currentStreams.length) {
-    grid.insertAdjacentHTML('beforeend', `<div class="streams-end">— Fin (${currentStreams.length} items) —</div>`);
+    grid.insertAdjacentHTML('beforeend', `<div class="streams-end">? Fin (${currentStreams.length} items) ?</div>`);
   }
 }
 
@@ -1890,7 +1876,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function backToCategories() {
   hideAllViews();
   document.getElementById('categoriesView').classList.add('show');
-  document.getElementById('catViewTitle').textContent = currentType === 'vod' ? '🎬 Películas' : '📽️ Series';
+  document.getElementById('catViewTitle').textContent = currentType === 'vod' ? '? Pel�culas' : '? Series';
   renderCategoriesGrid();
 }
 
@@ -1907,13 +1893,14 @@ function debounceStreamSearch() {
     renderedCount = 0;
     grid.innerHTML = '';
     if (currentStreams.length === 0) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">🔍 Sin resultados</div>`;
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:60px">? Sin resultados</div>`;
       return;
     }
     renderMoreStreams('streamsGrid');
   }, 300);
 }
 
+// ===== DETAIL LAYOUT & MODAL =====
 function openDetail(id) {
   let item = currentStreams.find(s => (s.stream_id || s.series_id || s.num) == id);
   if (!item) {
@@ -1931,16 +1918,16 @@ function openDetail(id) {
   destroyPlayer();
   
   const cover = item.cover || item.stream_icon || '';
-  const icon = currentType === 'vod' ? '🎬' : '📽️';
+  const icon = currentType === 'vod' ? '?' : '?';
   const coverHtml = cover ? `<img src="${cover}" onerror="this.style.display='none';this.parentNode.innerHTML='${icon}'">` : icon;
-  const rating = item.rating ? `<span>⭐ ${item.rating}</span>` : '';
+  const rating = item.rating ? `<span>? ${item.rating}</span>` : '';
   const year = item.year || '';
-  const yearHtml = year ? `<span>📅 ${escapeHtml(year)}</span>` : '';
+  const yearHtml = year ? `<span>? ${escapeHtml(year)}</span>` : '';
   const genre = item.genre || '';
-  const genreHtml = genre ? `<span>🎭 ${escapeHtml(genre)}</span>` : '';
-  const plot = item.plot || item.description || 'Sin descripción disponible.';
+  const genreHtml = genre ? `<span>? ${escapeHtml(genre)}</span>` : '';
+  const plot = item.plot || item.description || 'Sin descripci�n disponible.';
   
-  const modalBtnText = currentType === 'vod' ? '🎬 Similares' : '📺 Episodios';
+  const modalBtnText = currentType === 'vod' ? '? Similares' : '? Episodios';
   
   const dynamicContent = document.getElementById('detailDynamicContent');
   dynamicContent.innerHTML = `
@@ -1950,12 +1937,12 @@ function openDetail(id) {
       </div>
       <div class="detail-controls-col">
         <div class="detail-meta-panel">
-          <div class="detail-title-text">${escapeHtml(item.name || item.title || 'Sin título')}</div>
+          <div class="detail-title-text">${escapeHtml(item.name || item.title || 'Sin t�tulo')}</div>
           <div class="detail-meta-tags">${rating}${yearHtml}${genreHtml}</div>
           <div class="detail-plot-text">${escapeHtml(plot)}</div>
           <div class="detail-actions">
-            <button class="btn-play-detail" onclick="playCurrentItem()">▶️ Play</button>
-            <button class="btn-stop-detail" onclick="stopDetailVideo()">⏹️ Stop</button>
+            <button class="btn-play-detail" onclick="playCurrentItem()">? Play</button>
+            <button class="btn-stop-detail" onclick="stopDetailVideo()">? Stop</button>
             <button class="btn-modal-trigger" onclick="openContentModal()">${modalBtnText}</button>
           </div>
         </div>
@@ -1964,17 +1951,17 @@ function openDetail(id) {
         <div class="video-container-detail" id="videoContainerDetail">
           <div class="status-bar" id="statusBarDetail"></div>
           <div class="video-placeholder-detail" id="videoPlaceholderDetail">
-            <div class="icon">⚡</div>
+            <div class="icon">?</div>
             <div style="font-size:10px; font-weight:600; letter-spacing:1px;">Presiona play</div>
           </div>
           <video id="videoDetail" style="display:none" playsinline></video>
           <div class="custom-controls" id="controlsDetail">
-            <button class="cc-btn cc-play" id="ccPlayDetail" onclick="ccTogglePlay('videoDetail')">▶️</button>
+            <button class="cc-btn cc-play" id="ccPlayDetail" onclick="ccTogglePlay('videoDetail')">?</button>
             <span class="cc-time" id="ccTimeDetail">0:00 / 0:00</span>
             <input type="range" class="cc-seek" id="ccSeekDetail" min="0" max="100" value="0" oninput="ccSeek('videoDetail', this.value)">
-            <button class="cc-btn cc-mute" id="ccMuteDetail" onclick="ccToggleMute('videoDetail')">🔊</button>
+            <button class="cc-btn cc-mute" id="ccMuteDetail" onclick="ccToggleMute('videoDetail')">?</button>
             <input type="range" class="cc-volume" id="ccVolumeDetail" min="0" max="100" value="100" oninput="ccSetVolume('videoDetail', this.value)">
-            <button class="cc-btn" onclick="ccFullscreen('videoDetail')">⛶</button>
+            <button class="cc-btn" onclick="ccFullscreen('videoDetail')">?</button>
           </div>
         </div>
         <div class="now-playing-info" id="nowPlayingInfo">
@@ -1985,6 +1972,7 @@ function openDetail(id) {
     </div>`;
 }
 
+// ===== MODAL LOGIC =====
 function openContentModal() {
   const modal = document.getElementById('contentModal');
   const title = document.getElementById('modalTitle');
@@ -1993,7 +1981,7 @@ function openContentModal() {
   modal.classList.add('show');
   
   if (currentType === 'vod') {
-    title.textContent = '🎬 SIMILARES';
+    title.textContent = '? SIMILARES';
     let recs = streamsCache.vod[String(currentItem.category_id)] || [];
     recs = recs.filter(i => (i.stream_id || i.series_id) !== (currentItem.stream_id || currentItem.series_id));
     
@@ -2011,13 +1999,13 @@ function openContentModal() {
     recs.forEach(it => {
       const id = it.stream_id || it.series_id;
       const poster = it.cover || it.stream_icon || '';
-      const posterHtml = poster ? `<img src="${poster}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='🎬'">` : '🎬';
+      const posterHtml = poster ? `<img src="${poster}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='?'">` : '?';
       const year = it.year || '';
       html += `
         <div class="stream-card" onclick="closeContentModal(); setTimeout(()=>openDetail(${id}), 300)">
           <div class="poster">${posterHtml}</div>
           <div class="info">
-            <div class="title">${escapeHtml(it.name || 'Sin título')}</div>
+            <div class="title">${escapeHtml(it.name || 'Sin t�tulo')}</div>
             ${year ? `<div class="year">${escapeHtml(year)}</div>` : ''}
           </div>
         </div>`;
@@ -2026,7 +2014,7 @@ function openContentModal() {
     body.innerHTML = html || '<div class="empty-state">No hay recomendaciones</div>';
     
   } else {
-    title.textContent = '📺 EPISODIOS';
+    title.textContent = '? EPISODIOS';
     body.innerHTML = '<div class="streams-loader"><div class="spinner"></div><div class="text">Cargando...</div></div>';
     loadSeriesInfoForModal(currentItem.series_id);
   }
@@ -2046,7 +2034,7 @@ async function loadSeriesInfoForModal(seriesId) {
   try {
     const info = await apiCall('get_series_info', '&series_id=' + seriesId);
     if (!info || !info.episodes || Object.keys(info.episodes).length === 0) {
-      body.innerHTML = '<div class="empty-state">📭 No hay episodios</div>';
+      body.innerHTML = '<div class="empty-state">? No hay episodios</div>';
       return;
     }
     episodiosData = info.episodes;
@@ -2062,7 +2050,7 @@ async function loadSeriesInfoForModal(seriesId) {
     body.innerHTML = html;
     renderEpisodesModal();
   } catch (e) {
-    body.innerHTML = `<div class="empty-state">❌ Error: ${escapeHtml(e.message)}</div>`;
+    body.innerHTML = `<div class="empty-state">? Error: ${escapeHtml(e.message)}</div>`;
   }
 }
 
@@ -2084,7 +2072,7 @@ function renderEpisodesModal() {
   let html = '';
   eps.forEach(ep => {
     const ext = ep.container_extension || 'mp4';
-    const duracion = ep.info && ep.info.duration ? ' · ' + ep.info.duration : '';
+    const duracion = ep.info && ep.info.duration ? ' � ' + ep.info.duration : '';
     const epTitle = ep.title || 'Episodio ' + ep.episode_num;
     html += `
       <div class="episode-item" data-ep-id="${ep.id}" data-ext="${ext}" data-title="${escapeHtml(epTitle)}" onclick="playEpisodeFromElement(this)">
@@ -2093,7 +2081,7 @@ function renderEpisodesModal() {
           <div class="ep-title">${escapeHtml(epTitle)}</div>
           <div class="ep-meta">${ext.toUpperCase()}${duracion}</div>
         </div>
-        <div class="ep-play">▶️</div>
+        <div class="ep-play">?</div>
       </div>`;
   });
   list.innerHTML = html;
@@ -2117,6 +2105,7 @@ function playCurrentItem() {
   playInDetail(url, currentItem.name, 'vod');
 }
 
+// ===== L?GICA DE REPRODUCCI?N DE SERIES CON AUTO-PLAY =====
 function playEpisode(id, titulo, ext) {
   const url = `${API.server}/series/${API.user}/${API.pass}/${id}.${ext}`;
   
@@ -2164,7 +2153,7 @@ function handleVideoEnded() {
   const nextExt = this.dataset.nextEpExt;
 
   if (nextId) {
-    console.log('🔄 Auto-play: Siguiente episodio ->', nextTitle);
+    console.log('? Auto-play: Siguiente episodio ->', nextTitle);
     setTimeout(() => {
       playEpisode(nextId, nextTitle, nextExt);
     }, 1500);
@@ -2191,7 +2180,7 @@ function stopDetailVideo() {
   destroyPlayer();
   videoDetail.style.display = 'none';
   placeholderDetail.style.display = 'flex';
-  placeholderDetail.innerHTML = `<div class="icon">⚡</div><div style="font-size:10px; font-weight:600; letter-spacing:1px;">Presiona play</div>`;
+  placeholderDetail.innerHTML = `<div class="icon">?</div><div style="font-size:10px; font-weight:600; letter-spacing:1px;">Presiona play</div>`;
   
   if (nowPlayingInfo) nowPlayingInfo.classList.remove('show');
   
@@ -2212,6 +2201,7 @@ function toggleFullscreen() {
   else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
 }
 
+// ===== LIVE TV =====
 async function openLive() {
   hideAllViews();
   document.getElementById('liveLayout').classList.add('show');
@@ -2230,13 +2220,13 @@ function backToCategoriesMobile() {
 
 function renderLiveCategories() {
   const list = document.getElementById('liveCategoriesList');
-  if (categories.live.length === 0) { list.innerHTML = '<div class="empty-state">📭 No hay categorías</div>'; return; }
+  if (categories.live.length === 0) { list.innerHTML = '<div class="empty-state">? No hay categor�as</div>'; return; }
   let html = '';
   categories.live.forEach((cat) => {
     html += `<div class="category-item" data-cat-id="${cat.category_id}" onclick="selectLiveCategory('${cat.category_id}', '${escapeHtml(cat.category_name)}')">
-      <div class="category-item-icon">📺</div>
+      <div class="category-item-icon">?</div>
       <div class="category-item-name" title="${escapeHtml(cat.category_name)}">${escapeHtml(cat.category_name)}</div>
-      <div class="category-item-count">⏳</div>
+      <div class="category-item-count">?</div>
     </div>`;
   });
   list.innerHTML = html;
@@ -2258,26 +2248,26 @@ async function selectLiveCategory(categoryId, categoryName) {
   document.querySelectorAll('.category-item').forEach(el => el.classList.remove('active'));
   const activeEl = document.querySelector(`.category-item[data-cat-id="${categoryId}"]`);
   if (activeEl) activeEl.classList.add('active');
-  document.getElementById('channelsPanelTitle').textContent = `📺 ${categoryName}`;
+  document.getElementById('channelsPanelTitle').textContent = `? ${categoryName}`;
   document.getElementById('liveOverlayPanels').classList.add('mobile-show-channels');
-  document.getElementById('liveList').innerHTML = '<div class="empty-state"><div style="font-size:16px;margin-bottom:4px;">⏳</div>Cargando...</div>';
+  document.getElementById('liveList').innerHTML = '<div class="empty-state"><div style="font-size:16px;margin-bottom:4px;">?</div>Cargando...</div>';
   try {
     let streams = streamsCache.live[String(categoryId)];
     if (!streams) streams = await loadCategoryStreams('live', categoryId);
     liveChannelsData = streams;
     renderLiveChannels(streams);
   } catch (e) {
-    document.getElementById('liveList').innerHTML = `<div class="empty-state">❌ Error: ${escapeHtml(e.message)}</div>`;
+    document.getElementById('liveList').innerHTML = `<div class="empty-state">? Error: ${escapeHtml(e.message)}</div>`;
   }
 }
 
 function renderLiveChannels(lista) {
   const list = document.getElementById('liveList');
-  if (lista.length === 0) { list.innerHTML = '<div class="empty-state">📭 Sin canales</div>'; return; }
+  if (lista.length === 0) { list.innerHTML = '<div class="empty-state">? Sin canales</div>'; return; }
   let html = '';
   lista.slice(0, 200).forEach((it) => {
     const logo = it.stream_icon || '';
-    const logoHtml = logo ? `<img src="${logo}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='📺'">` : '📺';
+    const logoHtml = logo ? `<img src="${logo}" loading="lazy" onerror="this.style.display='none';this.parentNode.innerHTML='?'">` : '?';
     html += `<div class="channel-item" data-id="${it.stream_id}" onclick="playLive('${it.stream_id}')">
       <div class="channel-item-logo">${logoHtml}</div>
       <div class="channel-item-info">
@@ -2317,8 +2307,8 @@ function playLive(streamId) {
   channelInfo.style.display = 'flex';
   document.getElementById('channelInfoTitle').textContent = canal.name || 'Sin nombre';
   const cat = categories.live.find(c => String(c.category_id) === String(canal.category_id));
-  document.getElementById('channelInfoCategory').textContent = cat ? cat.category_name : 'Sin categoría';
-  document.getElementById('channelInfoLogo').innerHTML = canal.stream_icon ? `<img src="${canal.stream_icon}" onerror="this.style.display='none';this.parentNode.innerHTML='📺'">` : '📺';
+  document.getElementById('channelInfoCategory').textContent = cat ? cat.category_name : 'Sin categor�a';
+  document.getElementById('channelInfoLogo').innerHTML = canal.stream_icon ? `<img src="${canal.stream_icon}" onerror="this.style.display='none';this.parentNode.innerHTML='?'">` : '?';
   
   const streamUrl = sourceType === 'm3u' && canal.direct_url
     ? canal.direct_url
@@ -2328,6 +2318,7 @@ function playLive(streamId) {
 
 function expandPlayer() { document.getElementById('videoContainerFixed').classList.toggle('expanded'); }
 
+// ===== REPRODUCTOR =====
 function destroyPlayer() {
   if (hls) { try { hls.destroy(); } catch(e) {} hls = null; }
   if (mpegtsPlayer) { try { mpegtsPlayer.destroy(); } catch(e) {} mpegtsPlayer = null; }
@@ -2342,26 +2333,27 @@ function destroyPlayer() {
   });
 }
 
+// Detecta el tipo de stream a partir de la URL para elegir el motor de reproducci�n correcto
 function detectStreamType(url) {
   const clean = url.split('?')[0].toLowerCase();
   if (/\.m3u8$/.test(clean) || /\.m3u8($|#)/i.test(url)) return 'hls';
   if (/\.ts$/.test(clean) || /output=ts/i.test(url) || /\.m2ts$/.test(clean)) return 'ts';
   if (/\.mpd$/.test(clean)) return 'dash';
-  return 'native';
+  return 'native'; // mp4, mkv, avi, webm, etc. ? el navegador decide si puede reproducirlo
 }
 
 function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
   destroyPlayer();
   ccWire(videoEl.id);
   const streamType = detectStreamType(url);
-  showStatus('⏳ Cargando...', 'info', statusEl.id);
+  showStatus('? Cargando...', 'info', statusEl.id);
 
   const onReady = () => {
     videoEl.style.display = 'block';
     const ph = document.getElementById('videoPlaceholderDetail');
     if (ph) ph.style.display = 'none';
     attemptPlay(videoEl, statusEl);
-    showStatus('✅ Reproduciendo', 'ok', statusEl.id);
+    showStatus('? Reproduciendo', 'ok', statusEl.id);
   };
 
   if (streamType === 'hls') {
@@ -2374,6 +2366,7 @@ function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
         if (data.fatal) {
           try { hls.destroy(); } catch(err) {}
           hls = null;
+          // Fallback: quiz�s el servidor devuelve TS crudo aunque la URL diga .m3u8
           playWithMpegts(url, tipo, videoEl, statusEl, onReady);
         }
       });
@@ -2393,7 +2386,7 @@ function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
 
 function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
   if (typeof mpegts === 'undefined' || !mpegts.isSupported()) {
-    showStatus('❌ Formato no compatible con este navegador', 'error', statusEl.id);
+    showStatus('? Formato no compatible con este navegador', 'error', statusEl.id);
     return;
   }
   try {
@@ -2407,6 +2400,7 @@ function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
     mpegtsPlayer.on(mpegts.Events.ERROR, () => {
       try { mpegtsPlayer.destroy(); } catch(e) {}
       mpegtsPlayer = null;
+      // ?ltimo recurso: intentar reproducci�n nativa directa
       playNative(url, videoEl, statusEl, onReady);
     });
   } catch (e) {
@@ -2417,9 +2411,12 @@ function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
 function playNative(url, videoEl, statusEl, onReady) {
   videoEl.src = url;
   videoEl.addEventListener('loadeddata', onReady, { once: true });
-  videoEl.onerror = () => showStatus('❌ Formato no compatible con este navegador', 'error', statusEl.id);
+  videoEl.onerror = () => showStatus('? Formato no compatible con este navegador', 'error', statusEl.id);
 }
 
+// Intenta reproducir CON sonido. Si el navegador bloquea el autoplay con audio
+// (pol�tica de autoplay), reproduce en silencio como respaldo y muestra un
+// bot�n visible para activar el sonido con un toque (gesto del usuario).
 function attemptPlay(videoEl, statusEl) {
   videoEl.muted = false;
   videoEl.volume = 1;
@@ -2437,13 +2434,13 @@ function attemptPlay(videoEl, statusEl) {
 }
 
 function showUnmuteButton(videoEl, statusEl) {
-  if (statusEl) showStatus('🔇 Sonido bloqueado por el navegador — toca 🔊 para activarlo', 'info', statusEl.id);
+  if (statusEl) showStatus('? Sonido bloqueado por el navegador ? toca ? para activarlo', 'info', statusEl.id);
   let btn = videoEl.parentElement.querySelector('.btn-unmute');
   if (!btn) {
     btn = document.createElement('button');
     btn.className = 'btn-unmute';
     btn.type = 'button';
-    btn.innerHTML = '🔊 Activar sonido';
+    btn.innerHTML = '? Activar sonido';
     btn.onclick = () => {
       videoEl.muted = false;
       videoEl.volume = 1;
@@ -2459,6 +2456,7 @@ function hideUnmuteButton(videoEl) {
   if (btn) btn.remove();
 }
 
+// ===== CONTROLES PERSONALIZADOS (play/pause, volumen, seek, fullscreen) =====
 function ccSuffix(videoId) { return videoId === 'videoLive' ? 'Live' : 'Detail'; }
 
 function ccFormatTime(sec) {
@@ -2499,7 +2497,7 @@ function ccSyncVolumeUI(videoId) {
   const volSlider = document.getElementById('ccVolume' + suf);
   if (!v || !muteBtn || !volSlider) return;
   const effectiveVol = v.muted ? 0 : v.volume;
-  muteBtn.textContent = effectiveVol === 0 ? '🔇' : (effectiveVol < 0.5 ? '🔉' : '🔊');
+  muteBtn.textContent = effectiveVol === 0 ? '?' : (effectiveVol < 0.5 ? '?' : '?');
   volSlider.value = Math.round(effectiveVol * 100);
 }
 
@@ -2526,8 +2524,8 @@ function ccWire(videoId) {
   if (!v || v.dataset.ccWired) return;
   v.dataset.ccWired = '1';
 
-  v.addEventListener('play', () => { if (playBtn) playBtn.textContent = '⏸️'; });
-  v.addEventListener('pause', () => { if (playBtn) playBtn.textContent = '▶️'; });
+  v.addEventListener('play', () => { if (playBtn) playBtn.textContent = '?'; });
+  v.addEventListener('pause', () => { if (playBtn) playBtn.textContent = '?'; });
   v.addEventListener('volumechange', () => ccSyncVolumeUI(videoId));
 
   v.addEventListener('timeupdate', () => {
@@ -2544,6 +2542,7 @@ function ccWire(videoId) {
   ccSyncVolumeUI(videoId);
 }
 
+// ===== SETTINGS =====
 function openSettings() {
   hideAllViews();
   document.getElementById('settingsLayout').classList.add('show');
@@ -2551,8 +2550,8 @@ function openSettings() {
   if (sourceType === 'm3u') {
     document.getElementById('settingsUsername').textContent = 'Lista M3U';
     document.getElementById('settingsStatus').textContent = 'Activa';
-    document.getElementById('settingsExpDate').textContent = '—';
-    document.getElementById('settingsConnections').textContent = categories.live.length + ' categorías';
+    document.getElementById('settingsExpDate').textContent = '?';
+    document.getElementById('settingsConnections').textContent = categories.live.length + ' categor�as';
     return;
   }
 
@@ -2566,15 +2565,15 @@ function openSettings() {
 }
 
 function clearCache() {
-  if (!confirm('¿Eliminar caché local?')) return;
+  if (!confirm('�Eliminar cach� local?')) return;
   for (const t in streamsCache) streamsCache[t] = {};
   loadState.vod = { loading: false, complete: false, progress: 0, total: 0 };
   loadState.series = { loading: false, complete: false, progress: 0, total: 0 };
-  alert('✅ Caché limpiada');
+  alert('? Cach� limpiada');
 }
 
 function logout() {
-  if (!confirm('¿Cerrar sesión?')) return;
+  if (!confirm('�Cerrar sesi�n?')) return;
   localStorage.removeItem('xtream_account');
   API.server = ''; API.user = ''; API.pass = '';
   userInfo = null;
@@ -2612,6 +2611,91 @@ document.getElementById('loginUrl').addEventListener('input', (e) => {
     document.getElementById('loginPass').value = m[2];
   }
 });
+
+// ===== NAVEGACI?N CON CONTROL REMOTO / D-PAD / CURSOR =====
+// Permite moverse por todos los botones/tarjetas/inputs con las flechas
+// del control remoto (o teclado) y confirmar con Enter/OK, adem�s de
+// asegurar que cualquier elemento clicable sea "enfocable" aunque sea un div.
+
+function ccFocusableSelector() {
+  return 'a[href], button:not(:disabled), input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])';
+}
+
+function ccGetVisibleFocusables() {
+  return Array.from(document.querySelectorAll(ccFocusableSelector())).filter(el => {
+    if (el.offsetParent === null && getComputedStyle(el).position !== 'fixed') return false;
+    const rect = el.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0 && getComputedStyle(el).visibility !== 'hidden';
+  });
+}
+
+function ccMoveFocus(direction) {
+  const focusables = ccGetVisibleFocusables();
+  if (focusables.length === 0) return;
+  const current = document.activeElement;
+  const currentRect = (current && focusables.includes(current)) ? current.getBoundingClientRect() : null;
+
+  if (!currentRect) { focusables[0].focus(); return; }
+
+  const cx = currentRect.left + currentRect.width / 2;
+  const cy = currentRect.top + currentRect.height / 2;
+  let best = null, bestScore = Infinity;
+
+  focusables.forEach(el => {
+    if (el === current) return;
+    const r = el.getBoundingClientRect();
+    const ex = r.left + r.width / 2;
+    const ey = r.top + r.height / 2;
+    const dx = ex - cx, dy = ey - cy;
+    let inDirection = false, primary = 0, secondary = 0;
+
+    switch (direction) {
+      case 'up': inDirection = dy < -2; primary = -dy; secondary = Math.abs(dx); break;
+      case 'down': inDirection = dy > 2; primary = dy; secondary = Math.abs(dx); break;
+      case 'left': inDirection = dx < -2; primary = -dx; secondary = Math.abs(dy); break;
+      case 'right': inDirection = dx > 2; primary = dx; secondary = Math.abs(dy); break;
+    }
+    if (!inDirection) return;
+    const score = primary + secondary * 2;
+    if (score < bestScore) { bestScore = score; best = el; }
+  });
+
+  if (best) {
+    best.focus();
+    if (best.scrollIntoView) best.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  switch (e.key) {
+    case 'ArrowUp': ccMoveFocus('up'); e.preventDefault(); break;
+    case 'ArrowDown': ccMoveFocus('down'); e.preventDefault(); break;
+    case 'ArrowLeft': ccMoveFocus('left'); e.preventDefault(); break;
+    case 'ArrowRight': ccMoveFocus('right'); e.preventDefault(); break;
+    case 'Enter':
+    case ' ': {
+      const el = document.activeElement;
+      if (el && el.hasAttribute('onclick') && !['BUTTON','A','INPUT','TEXTAREA','SELECT'].includes(el.tagName)) {
+        e.preventDefault();
+        el.click();
+      }
+      break;
+    }
+  }
+});
+
+// Cualquier elemento con onclick (tarjetas, categor�as, canales, etc.)
+// se vuelve navegable con el D-pad aunque sea un <div>.
+function ccEnsureFocusable(root) {
+  (root || document).querySelectorAll('[onclick]:not([tabindex]):not(button):not(a):not(input)').forEach(el => {
+    el.setAttribute('tabindex', '0');
+  });
+}
+
+const ccFocusObserver = new MutationObserver(() => ccEnsureFocusable(document));
+ccFocusObserver.observe(document.body, { childList: true, subtree: true });
+ccEnsureFocusable(document);
+
 </script>
 </body>
 </html>
