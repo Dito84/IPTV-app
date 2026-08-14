@@ -1,0 +1,10 @@
+{
+  "appId": "com.miapp.iptv",
+  "appName": "IPTV Player",
+  "webDir": "www",
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}
