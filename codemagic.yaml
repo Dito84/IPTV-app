@@ -1,0 +1,20 @@
+workflows:
+  android-capacitor-apk:
+    name: IPTV Player - Build APK
+    max_build_duration: 30
+    instance_type: linux_x2
+    environment:
+      node: latest
+      java: 17
+    scripts:
+      - name: Instalar dependencias npm
+        script: npm install
+      - name: Copiar assets web y sincronizar Android
+        script: npx cap sync android
+      - name: Compilar APK (debug)
+        script: |
+          cd android
+          chmod +x ./gradlew
+          ./gradlew assembleDebug
+    artifacts:
+      - android/app/build/outputs/**/*.apk
