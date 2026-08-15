@@ -1296,6 +1296,30 @@
    ============================================================ */
 
 const API = { server: '', user: '', pass: '' };
+
+// ===== FETCH INTELIGENTE (evita CORS solo en llamadas de login/API) =====
+// Usamos el plugin nativo CapacitorHttp SOLO aquí (no está activado de forma
+// global) para no interferir con hls.js/mpegts.js, que necesitan el fetch/XHR
+// normal del navegador para cargar el video correctamente.
+async function smartFetch(url, options = {}) {
+  const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+  if (isNative && window.Capacitor.Plugins && window.Capacitor.Plugins.CapacitorHttp) {
+    const nativeResp = await window.Capacitor.Plugins.CapacitorHttp.request({
+      url,
+      method: 'GET',
+      headers: options.headers || {},
+      responseType: 'text'
+    });
+    const bodyText = typeof nativeResp.data === 'string' ? nativeResp.data : JSON.stringify(nativeResp.data);
+    return {
+      ok: nativeResp.status >= 200 && nativeResp.status < 300,
+      status: nativeResp.status,
+      text: async () => bodyText,
+      json: async () => (typeof nativeResp.data === 'object' ? nativeResp.data : JSON.parse(bodyText))
+    };
+  }
+  return fetch(url, options);
+}
 let userInfo = null;
 let sourceType = 'xtream'; // 'xtream' | 'm3u'
 let m3uUrl = '';
@@ -1365,7 +1389,7 @@ async function apiCall(action, extra = '') {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 30000);
   try {
-    const resp = await fetch(url, { signal: controller.signal, headers: { 'Accept': 'application/json' } });
+    const resp = await smartFetch(url, { signal: controller.signal, headers: { 'Accept': 'application/json' } });
     clearTimeout(timeoutId);
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     return await resp.json();
@@ -1455,7 +1479,7 @@ async function loginM3U(overrideUrl, preloadedText) {
   try {
     let text = preloadedText;
     if (text === undefined) {
-      const resp = await fetch(url, { headers: { 'Accept': 'text/plain, */*' } });
+      const resp = await smartFetch(url, { headers: { 'Accept': 'text/plain, */*' } });
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
       text = await resp.text();
     }
@@ -1540,7 +1564,7 @@ async function resolveIndirection(url) {
   let currentUrl = url;
   let text = '';
   for (let hop = 0; hop < 3; hop++) {
-    const resp = await fetch(currentUrl, { headers: { 'Accept': 'text/plain, */*' } });
+    const resp = await smartFetch(currentUrl, { headers: { 'Accept': 'text/plain, */*' } });
     if (!resp.ok) throw new Error('HTTP ' + resp.status + ' al descargar la lista');
     text = await resp.text();
     const trimmed = text.trim();
@@ -2474,9 +2498,19 @@ function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
   }
 }
 
+// Diagnóstico: si el problema es falta de soporte MSE (WebView desactualizado),
+// lo decimos explícitamente en vez de un genérico "formato no compatible".
+function ccGetWebviewDiagnosticMsg() {
+  const hasMSE = typeof MediaSource !== 'undefined' || typeof ManagedMediaSource !== 'undefined';
+  if (!hasMSE) {
+    return '❌ El WebView del sistema está desactualizado (sin soporte de video moderno). Actualiza "Android System WebView" y "Chrome" en Play Store.';
+  }
+  return '❌ Formato no compatible con este navegador';
+}
+
 function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
   if (typeof mpegts === 'undefined' || !mpegts.isSupported()) {
-    showStatus('❌ Formato no compatible con este navegador', 'error', statusEl.id);
+    showStatus(ccGetWebviewDiagnosticMsg(), 'error', statusEl.id);
     return;
   }
   try {
@@ -2501,7 +2535,7 @@ function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
 function playNative(url, videoEl, statusEl, onReady) {
   videoEl.src = url;
   videoEl.addEventListener('loadeddata', onReady, { once: true });
-  videoEl.onerror = () => showStatus('❌ Formato no compatible con este navegador', 'error', statusEl.id);
+  videoEl.onerror = () => showStatus(ccGetWebviewDiagnosticMsg(), 'error', statusEl.id);
 }
 
 // Intenta reproducir CON sonido. Si el navegador bloquea el autoplay con audio
