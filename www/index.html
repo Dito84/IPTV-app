@@ -1266,6 +1266,24 @@
     </div>
 
     <div class="settings-box">
+      <h2>PROXY CORS (Opcional)</h2>
+      <p class="settings-hint">Si ves errores de CORS en navegador web, configura un proxy. Usa {{url}} como marcador.<br>Ejemplo: https://cors-anywhere.herokuapp.com/{{url}}</p>
+      <div class="settings-info">
+        <input type="text" id="corsProxyInput" placeholder="https://tu-proxy.com/{{url}}" style="width:100%; padding:10px; background:var(--dark-bg); border:1px solid var(--border-dim); border-radius:6px; color:var(--text-primary); font-size:12px;">
+      </div>
+      <div class="settings-actions">
+        <button class="btn-clear-cache" onclick="saveCorsProxy()">💾 Guardar Proxy</button>
+        <button class="btn-clear-cache" onclick="clearCorsProxy()">🗑️ Limpiar Proxy</button>
+      </div>
+      <div class="settings-info" style="margin-top:12px">
+        <div class="settings-info-row">
+          <span class="settings-info-label">Estado actual</span>
+          <span class="settings-info-value" id="corsProxyStatus">Sin proxy configurado</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="settings-box">
       <h2>REPRODUCTOR DE VIDEO</h2>
       <p class="settings-hint">Si el video se ve pero sin audio (o no carga), prueba con el otro motor de reproducción.</p>
       <div class="player-engine-select">
@@ -1293,33 +1311,64 @@
 <script>
 /* ============================================================
    ARQUITECTURA DE CARGA PROFESIONAL + MODAL + AUTO-PLAY SERIES
+   CON SOPORTE CORS COMPLETO
    ============================================================ */
 
 const API = { server: '', user: '', pass: '' };
+
+// ===== PROXY CORS CONFIGURABLE =====
+let corsProxy = localStorage.getItem('cors_proxy') || '';
+
+function applyCorsProxy(url) {
+  if (!corsProxy) return url;
+  // Soportar diferentes formatos de proxy
+  if (corsProxy.includes('{{url}}')) {
+    return corsProxy.replace('{{url}}', encodeURIComponent(url));
+  } else {
+    // Si no tiene {{url}}, añadir la URL codificada al final
+    return corsProxy + encodeURIComponent(url);
+  }
+}
 
 // ===== FETCH INTELIGENTE (evita CORS solo en llamadas de login/API) =====
 // Usamos el plugin nativo CapacitorHttp SOLO aquí (no está activado de forma
 // global) para no interferir con hls.js/mpegts.js, que necesitan el fetch/XHR
 // normal del navegador para cargar el video correctamente.
 async function smartFetch(url, options = {}) {
-  const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+  const isNative = isNativePlatform();
+  
+  // En plataforma nativa, usar CapacitorHttp (evita CORS automáticamente)
   if (isNative && window.Capacitor.Plugins && window.Capacitor.Plugins.CapacitorHttp) {
-    const nativeResp = await window.Capacitor.Plugins.CapacitorHttp.request({
-      url,
-      method: 'GET',
-      headers: options.headers || {},
-      responseType: 'text'
-    });
-    const bodyText = typeof nativeResp.data === 'string' ? nativeResp.data : JSON.stringify(nativeResp.data);
-    return {
-      ok: nativeResp.status >= 200 && nativeResp.status < 300,
-      status: nativeResp.status,
-      text: async () => bodyText,
-      json: async () => (typeof nativeResp.data === 'object' ? nativeResp.data : JSON.parse(bodyText))
-    };
+    try {
+      const nativeResp = await window.Capacitor.Plugins.CapacitorHttp.request({
+        url,
+        method: 'GET',
+        headers: options.headers || {},
+        responseType: 'text'
+      });
+      const bodyText = typeof nativeResp.data === 'string' ? nativeResp.data : JSON.stringify(nativeResp.data);
+      return {
+        ok: nativeResp.status >= 200 && nativeResp.status < 300,
+        status: nativeResp.status,
+        text: async () => bodyText,
+        json: async () => (typeof nativeResp.data === 'object' ? nativeResp.data : JSON.parse(bodyText))
+      };
+    } catch (e) {
+      console.warn('CapacitorHttp falló, usando fetch normal:', e);
+    }
   }
-  return fetch(url, options);
+  
+  // En navegador web, aplicar proxy CORS si está configurado
+  const fetchUrl = corsProxy ? applyCorsProxy(url) : url;
+  return fetch(fetchUrl, options);
 }
+
+function isNativePlatform() {
+  return window.Capacitor && 
+         window.Capacitor.isNativePlatform && 
+         window.Capacitor.isNativePlatform();
+}
+
 let userInfo = null;
 let sourceType = 'xtream'; // 'xtream' | 'm3u'
 let m3uUrl = '';
@@ -1350,6 +1399,10 @@ let streamSearchDebounceTimer = null;
 const PAGE_SIZE = 40;
 
 window.addEventListener('DOMContentLoaded', () => {
+  // Cargar proxy CORS guardado
+  corsProxy = localStorage.getItem('cors_proxy') || '';
+  updateCorsProxyStatus();
+  
   const saved = localStorage.getItem('xtream_account');
   if (saved) {
     try {
@@ -1396,6 +1449,9 @@ async function apiCall(action, extra = '') {
   } catch(e) {
     clearTimeout(timeoutId);
     if (e.name === 'AbortError') throw new Error('Timeout de conexión');
+    if (e.message && e.message.includes('Failed to fetch')) {
+      throw new Error('Error de CORS o red. Configura un proxy CORS en Settings si usas navegador web.');
+    }
     throw e;
   }
 }
@@ -2456,10 +2512,40 @@ function showSettingsMsg(msg, tipo) {
   setTimeout(() => el.classList.remove('show'), 4000);
 }
 
+// ===== FUNCIONES DE PROXY CORS =====
+function saveCorsProxy() {
+  const input = document.getElementById('corsProxyInput');
+  corsProxy = input.value.trim();
+  localStorage.setItem('cors_proxy', corsProxy);
+  updateCorsProxyStatus();
+  showSettingsMsg('✅ Proxy CORS guardado — se aplicará en las próximas reproducciones', 'ok');
+}
+
+function clearCorsProxy() {
+  corsProxy = '';
+  localStorage.removeItem('cors_proxy');
+  document.getElementById('corsProxyInput').value = '';
+  updateCorsProxyStatus();
+  showSettingsMsg('✅ Proxy CORS eliminado', 'ok');
+}
+
+function updateCorsProxyStatus() {
+  const statusEl = document.getElementById('corsProxyStatus');
+  if (!statusEl) return;
+  if (corsProxy) {
+    statusEl.textContent = '✅ Proxy configurado';
+    statusEl.style.color = 'var(--neon-green)';
+  } else {
+    statusEl.textContent = 'Sin proxy configurado';
+    statusEl.style.color = 'var(--text-secondary)';
+  }
+}
+
 function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
   destroyPlayer();
   ccWire(videoEl.id);
   const streamType = detectStreamType(url);
+  const isNative = isNativePlatform();
   showStatus('⏳ Cargando...', 'info', statusEl.id);
 
   const onReady = () => {
@@ -2472,7 +2558,21 @@ function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
 
   if (streamType === 'hls') {
     if (Hls.isSupported()) {
-      hls = new Hls({ lowLatencyMode: tipo === 'live', enableWorker: true, maxBufferLength: 30, maxMaxBufferLength: 60 });
+      const hlsConfig = { 
+        lowLatencyMode: tipo === 'live', 
+        enableWorker: true, 
+        maxBufferLength: 30, 
+        maxMaxBufferLength: 60 
+      };
+      
+      // Configurar xhrSetup para usar proxy CORS en navegador web
+      if (corsProxy && !isNative) {
+        hlsConfig.xhrSetup = function(xhr, url) {
+          xhr.open('GET', applyCorsProxy(url), true);
+        };
+      }
+      
+      hls = new Hls(hlsConfig);
       hls.loadSource(url);
       hls.attachMedia(videoEl);
       hls.on(Hls.Events.MANIFEST_PARSED, onReady);
@@ -2485,7 +2585,9 @@ function iniciarReproduccion(url, titulo, tipo, videoEl, statusEl) {
         }
       });
     } else if (videoEl.canPlayType('application/vnd.apple.mpegurl')) {
-      videoEl.src = url;
+      // Safari nativo con HLS
+      const videoUrl = (corsProxy && !isNative) ? applyCorsProxy(url) : url;
+      videoEl.src = videoUrl;
       videoEl.addEventListener('loadedmetadata', onReady, { once: true });
       videoEl.onerror = () => playNative(url, videoEl, statusEl, onReady);
     } else {
@@ -2505,7 +2607,8 @@ function ccGetWebviewDiagnosticMsg() {
   if (!hasMSE) {
     return '❌ El WebView del sistema está desactualizado (sin soporte de video moderno). Actualiza "Android System WebView" y "Chrome" en Play Store.';
   }
-  return '❌ Formato no compatible con este navegador';
+  const msg = corsProxy ? '❌ Error al cargar el video. Verifica el proxy CORS.' : '❌ Formato no compatible con este navegador. Configura un proxy CORS en Settings.';
+  return msg;
 }
 
 function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
@@ -2513,9 +2616,13 @@ function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
     showStatus(ccGetWebviewDiagnosticMsg(), 'error', statusEl.id);
     return;
   }
+  
+  const isNative = isNativePlatform();
+  const videoUrl = (corsProxy && !isNative) ? applyCorsProxy(url) : url;
+  
   try {
     mpegtsPlayer = mpegts.createPlayer(
-      { type: 'mse', url, isLive: tipo === 'live' },
+      { type: 'mse', url: videoUrl, isLive: tipo === 'live' },
       { enableWorker: true, liveBufferLatencyChasing: tipo === 'live' }
     );
     mpegtsPlayer.attachMediaElement(videoEl);
@@ -2533,7 +2640,9 @@ function playWithMpegts(url, tipo, videoEl, statusEl, onReady) {
 }
 
 function playNative(url, videoEl, statusEl, onReady) {
-  videoEl.src = url;
+  const isNative = isNativePlatform();
+  const videoUrl = (corsProxy && !isNative) ? applyCorsProxy(url) : url;
+  videoEl.src = videoUrl;
   videoEl.addEventListener('loadeddata', onReady, { once: true });
   videoEl.onerror = () => showStatus(ccGetWebviewDiagnosticMsg(), 'error', statusEl.id);
 }
@@ -2675,6 +2784,10 @@ function openSettings() {
     const btn = document.getElementById('engineBtn' + suf);
     if (btn) btn.classList.toggle('active', suf.toLowerCase() === (preferredPlayerEngine === 'ts' ? 'mpegts' : preferredPlayerEngine));
   });
+
+  // Cargar proxy CORS en el input
+  document.getElementById('corsProxyInput').value = corsProxy;
+  updateCorsProxyStatus();
 
   if (sourceType === 'm3u') {
     document.getElementById('settingsUsername').textContent = 'Lista M3U';
